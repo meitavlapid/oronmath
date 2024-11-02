@@ -48,7 +48,7 @@ function checkAnswer() {
     const userAnswer = parseInt(answerInput.value);
     if (userAnswer === correctAnswer) {
         messageElement.textContent = 'נכון מאוד';
-        messageElement.style.color = "green";
+        messageElement.style.color = "Blue";
     } else {
         messageElement.textContent = 'לא נכון, נסה שוב!';
         messageElement.style.color = "red";
