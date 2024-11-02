@@ -1,43 +1,84 @@
-const num1ele = document.getElementById("num1");
-const num2ele = document.getElementById("num2");
+
+const num1Element = document.getElementById("num1");
+const num2Element = document.getElementById("num2");
+const operationElement = document.getElementById("op");
 let num1, num2;
+let currentOperation = "+";
 
-const check = document.getElementById("check")
-const next = document.getElementById("next")
+const checkButton = document.getElementById("check");
+const nextButton = document.getElementById("next");
 
-const sum = document.getElementById("sum")
-const message = document.getElementById("message")
-
-
-
-function setEx() {
-
-    sum.value = '';
-    num1 = Math.floor(10 * Math.random())
-    num2 = Math.floor(10 * Math.random())
-
-    num1ele.textContent = num1;
-    num2ele.textContent = num2;
+const answerInput = document.getElementById("sum");
+const messageElement = document.getElementById("message");
 
 
+function generateExercise() {
+    answerInput.value = '';
+    messageElement.textContent = '';
+
+    num1 = Math.floor(Math.random() * 100);
+    num2 = Math.floor(Math.random() * 10);
+
+    num1Element.textContent = num1;
+    num2Element.textContent = num2;
+    operationElement.textContent = currentOperation;
 }
 
-setEx()
-
-
-check.addEventListener('click', function () {
-
-    let result = num1 + num2;
-    let userAns = sum.value;
-    console.log(result, userAns);
-    if (result == userAns) {
-        message.textContent = 'נכון מאוד'
-        message.style.color = "green";
-
-    } else {
-        message.textContent = 'לא נכון נסה שוב!'
-        message.style.color = "red";
+function checkAnswer() {
+    let correctAnswer;
+    switch (currentOperation) {
+        case "+":
+            correctAnswer = num1 + num2;
+            break;
+        case "-":
+            correctAnswer = num1 - num2;
+            break;
+        case "*":
+            correctAnswer = num1 * num2;
+            break;
+        case "/":
+            if (num2 !== 0) {
+                correctAnswer = num1 / num2;
+            } else {
+                messageElement.textContent = "לא ניתן לחלק באפס!";
+                return;
+            }
+            break;
     }
-})
+    const userAnswer = parseInt(answerInput.value);
+    if (userAnswer === correctAnswer) {
+        messageElement.textContent = 'נכון מאוד';
+        messageElement.style.color = "green";
+    } else {
+        messageElement.textContent = 'לא נכון, נסה שוב!';
+        messageElement.style.color = "red";
+    }
+}
+checkAnswer();
+document.getElementById("addition").addEventListener("click", function () {
+    currentOperation = "+";
+    operationElement.textContent = currentOperation;
+    generateExercise();
+});
 
-next.addEventListener('click', setEx)
+document.getElementById("subtraction").addEventListener("click", function () {
+    currentOperation = "-";
+    operationElement.textContent = currentOperation;
+    generateExercise();
+});
+
+document.getElementById("multiplication").addEventListener("click", function () {
+    currentOperation = "*";
+    operationElement.textContent = currentOperation;
+    generateExercise();
+});
+
+document.getElementById("division").addEventListener("click", function () {
+    currentOperation = "/";
+    operationElement.textContent = currentOperation;
+    generateExercise();
+});
+generateExercise();
+
+checkButton.addEventListener('click', checkAnswer);
+nextButton.addEventListener('click', generateExercise);
