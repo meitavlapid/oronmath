@@ -47,7 +47,7 @@ function checkAnswer() {
     }
     const userAnswer = parseInt(answerInput.value);
     if (userAnswer === correctAnswer) {
-        messageElement.textContent = 'נכון מאוד';
+        messageElement.textContent = '🎉🙌 ✨ נכון מאוד ✨ 😊👏';
         messageElement.style.color = "Blue";
     } else {
         messageElement.textContent = 'לא נכון, נסה שוב!';
